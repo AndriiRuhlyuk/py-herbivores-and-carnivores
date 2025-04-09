@@ -10,6 +10,11 @@ class Animal:
         self.hidden = False
         Animal.alive.append(self)
 
+    @classmethod
+    def change_alive(cls, obj: Animal) -> None:
+        if obj in cls.alive:
+            cls.alive.remove(obj)
+
     def __repr__(self) -> str:
         return f"{{Name: {self.name}, " \
                f"Health: {self.health}," \
@@ -22,7 +27,7 @@ class Carnivore(Animal):
         if isinstance(other, Herbivore) and not other.hidden:
             other.health -= 50
         if other.health <= 0:
-            Animal.alive.remove(other)
+            Animal.change_alive(other)
 
 
 class Herbivore(Animal):
